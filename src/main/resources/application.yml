@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: short-link-service
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/link_db}
+    username: ${DATABASE_USER:postgre_user}
+    password: ${DATABASE_PASSWORD:postgre_secret_password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      transaction-isolation: TRANSACTION_SERIALIZABLE
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+    show-sql: false
+
+hop:
+  limit: 3
+
+expiration:
+  interval:
+    seconds: 300
+
+remove:
+  interval:
+    cron: 0 * * * * ?
