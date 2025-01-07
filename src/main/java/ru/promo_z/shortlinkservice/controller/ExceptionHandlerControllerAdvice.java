@@ -16,12 +16,12 @@ import java.net.URISyntaxException;
 public class ExceptionHandlerControllerAdvice {
 
     @ExceptionHandler({ShortLinkNotFoundException.class, UserNotFoundException.class})
-    public ResponseEntity<ErrorResponseDto> handleShortLinkNotFoundException(Exception ex) {
+    public ResponseEntity<ErrorResponseDto> handleExceptionsForNotFoundHttpStatus(Exception ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(getErrorResponseDto(ex.getMessage()));
     }
 
     @ExceptionHandler({LimitException.class, URISyntaxException.class, IOException.class})
-    public ResponseEntity<ErrorResponseDto> handleReachedLimitException(Exception ex) {
+    public ResponseEntity<ErrorResponseDto> handleExceptionsForBadRequestHttpStatus(Exception ex) {
         return ResponseEntity.badRequest().body(getErrorResponseDto(ex.getMessage()));
     }
 
